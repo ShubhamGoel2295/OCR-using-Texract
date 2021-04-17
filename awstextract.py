@@ -1,7 +1,6 @@
 import boto3
 import pandas as pd
 from trp import Document
-from storing_output import excel_data
 
 class textract_connect:
 
@@ -26,7 +25,7 @@ class textract_connect:
 
     def upload_s3(self):
         # Upload files to S3 bucket
-        self.s3.Bucket('bucketname').upload_file(Filename= 'file_name', Key= 'key_name') # give bucket name, filename with path that u want to upload and key name
+        self.s3.Bucket('bucketname').upload_file(Filename= 'file_name', Key= 'key_name') # give bucket name, filename with path that u want to upload and give key name
 
 
     def files_display(self):
@@ -41,8 +40,8 @@ class textract_connect:
         self.response = self.textract.analyze_document(
             Document={
                 'S3Object': {
-                    'Bucket': 'bucketname', # bucket name
-                    'Name': filename  # key name of file present in S3
+                    'Bucket': 'bucketname', # give bucket name
+                    'Name': filename  # give key name of file present in S3
                 }}, FeatureTypes=["TABLES"]) # table format
         return self.response
 
@@ -63,3 +62,5 @@ for page in doc.pages:
             for c, cell1 in enumerate(row.cells):
 #                 print(cell)
                 print("Table[{}][{}] = {}".format(r, c, cell1.text))
+    
+    
